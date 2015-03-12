@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html ng-app="appAngular">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+
+    <script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="controllers.js"></script>
+
+</head>
+
+<body>
+    <div class="container" ng-controller="ToDoCtrl">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Список задач</h1>
+                <div class="col-sm-3">
+                    <form>
+                        <p>
+                            Название<br />
+                            <input type="text" class="form-control" placeholder="Введите название" ng-model="newnote.name" />
+                        </p>
+                        <p>
+                            Приоритет<br />
+                            <select class="form-control" ng-model="newnote.priority">
+                                <option value="Высокий">Высокий</option>
+                                <option value="Средний" selected>Средний</option>
+                                <option value="Низкий">Низкий</option>
+                            </select>
+                        </p>
+                        <p>
+                            Исполнитель <br />
+                            <input type="text" class="form-control" placeholder="Введите имя исполнителя" ng-model="newnote.performer" /> <br />
+                        </p>
+                        <input type="button" ng-click='addNote();' class="btn btn-primary" value="Добавить">
+                    </form>
+                </div>
+                <div class="col-sm-9">
+                    <h2>Осталось выполнить задач: <span class="sis">{{actuals.length}}</span></h2>
+                    <ul class ="mylist">
+                        <li ng-repeat="n in actuals">
+                            {{n.name}}
+                            <span class="perf">({{n.performer}})</span>
+                            <span class="btn btn-com" ng-click="completeNote(n.name, n.priority, n.performer, n)">
+                                Завершить
+                            </span>
+                            <span ng-click="deleteNote(n)" class="btn btn-del">
+                                Удалить
+                            </span>
+                            <span class="label label-success" ng-class="{'label-l':n.priority=='Низкий', 'label-m':n.priority=='Средний', 'label-h':n.priority=='Высокий' }">
+                                {{n.priority}}
+                            </span>
+                        </li>
+                    </ul>
+                    <hr role="banner" />
+                    <h3>Выполненные задачи</h3>
+                    <ul class="mylist">
+                        <li ng-repeat="n in archives">
+                            {{n.name}}
+                            <span class="perf">({{n.performer}})</span>
+                            <span ng-click="deleteArchive(n)" class="btn btn-del">
+                                Удалить
+                            </span>
+                            <span class="label label-success" ng-class="{'label-l':n.priority=='Низкий', 'label-m':n.priority=='Средний', 'label-h':n.priority=='Высокий' }">
+                                {{n.priority}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
